@@ -209,36 +209,6 @@ function myScore()
 }
 
 
-function previewCard() {
-  var name = document.getElementById("name").value;
-  var date = document.getElementById("date").value;
-  var clas = document.getElementById("class").value;
-
-  document.getElementById("showName").innerText = name;
-  document.getElementById("showDate").innerText = date;
-  document.getElementById("showClass").innerText = clas;
-
-  var elements = document.getElementsByName('new');
-  var names = document.getElementsByName('newName');
-
-  document.getElementById("idCard").style.display = "block";
-  window.location = "#idCard";
-
-  var k = 0;
-  elements.forEach((element) => {
-    let b = document.createElement("b");
-    b.appendChild(document.createTextNode(names[k].innerText+':'));
-    document.getElementById("setField").appendChild(b);
-    let i = document.createElement("i");
-    i.appendChild(document.createTextNode(element.value));
-    document.getElementById("setField").appendChild(i);
-    let br = document.createElement("br");
-    document.getElementById("setField").appendChild(br);
-    k++;
-  })
-}
-
-
 function newField() {
   modal.style.display = "none";
   modal2.style.display = "block";
@@ -246,27 +216,8 @@ function newField() {
 
 var labelName = '';
 function addField() {
-  //let labelName = document.getElementById("labelName").value;
-  //document.getElementById("labelName").value = "";
 
-  labelName = document.getElementById("labelName").value;
-  //let labeltype = document.getElementById("labelType").value;
-  let labelVal = document.getElementsByName("labelType")[0];
-  let labelType = labelVal.options[labelVal.selectedIndex].text;
-
-  let label = document.createElement("label");
-  let br = document.createElement("br");
-  let inputType = document.createElement("input");
-
-  label.appendChild(document.createTextNode(labelName));
-  label.setAttribute("name", 'newName');
-  inputType.setAttribute("type", labelType);
-  inputType.setAttribute("name", 'new');
-
-
-  document.getElementById("newField").appendChild(label);
-  document.getElementById("newField").appendChild(inputType);
-  document.getElementById("newField").appendChild(br);
+    
 
 
   modal2.style.display = "none";
