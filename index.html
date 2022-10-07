@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cricket</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./avatar.png">
+</head>
+
+<body>
+    <!-- Trigger/Open The Modal -->
+    <div class="center">
+        <h1>Play Cricket</h1>
+        <button id="myBtn">Start</button>
+
+        <h2>IND - <span id="totalRun">0</span>/<span id="totalWicket">0</span> (<span id="totalOver">0.0</span>)</h2>
+        <div class="container">
+            <table id="batsman">
+                <tr>
+                    <th>Batting</th>
+                    <th>R</th>
+                    <th>4s</th>
+                    <th>6s</th>
+                    <th>SR</th>
+                </tr>
+                <tr id="bowler">
+                    <td>Rahul</td>
+                    <td id="playerRun">0</td>
+                    <td id="playerFours">0</td>
+                    <td id="playerSixes">0</td>
+                    <td id="playerStrikeRate">0</td>
+                </tr>
+            </table>
+
+            <table>
+                <tr>
+                    <th>Bowling</th>
+                    <th>O</th>
+                    <th>R</th>
+                    <th>W</th>
+                </tr>
+                <tr>
+                    <td>Aryan</td>
+                    <td id="playerOver">0</td>
+                    <td id="playerRuns">0</td>
+                    <td id="playerWicket">0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+
+            <div class="center">
+                <button id="myBtn" onclick="newField()">Add Player</button>
+                <div class="fields" id="newField">
+                    <span>Over:</span>
+                    <b id="over">0.0</b><br>
+                    <input type="text" name="score" id="score" oninput="myScore()" onfocus="this.value=''">
+                </div>
+                
+            </div>
+        </div>
+
+    </div>
+
+    <div id="myModal2" class="modal2">
+        <div class="modal-content">
+            <!-- <span class="close">&times;</span> -->
+
+            <div class="center">
+                <h1>Add Player</h1>
+                <div class="fields">
+                    <!-- <label for="labelName">Field Label</label>
+                    <input type="text" name="labelName" id="labelName"><br>
+                    <label for="labelType">Field Type</label>
+                    <select name="labelType" id="labelType">
+                        <option value="text">Text</option>
+                        <option value="date">Date</option>
+                        <option value="number">Number</option>
+                    </select>
+                    <br> -->
+                    <label for="labelName">Player Name</label>
+                    <input type="text" name="labelName" id="labelName"><br>
+                    <label for="labelType">Player Type</label>
+                    <select name="labelType" id="labelType">
+                        <option value="text">Batsman</option>
+                        <option value="date">Bowler</option>
+                    </select>
+                    <br>
+                </div>
+
+                <button id="myBtn" onclick="cancelField()">Cancel</button>
+                <button id="myBtn" onclick="addField()">Add</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    // Get the modal
+var modal = document.getElementById("myModal");
+var modal2 = document.getElementById("myModal2");
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function () {
+  modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none";
+  document.getElementById("idCard").style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+    document.getElementById("idCard").style.display = "none";
+  }
+};
+
+var over = parseFloat(document.getElementById('over').innerText);
+var totalRun = 0;
+var wicket = 0;
+var fours = 0;
+var sixes = 0;
+var strike = 0;
+var balls = 0;
+
+function myScore()
+{
+    
+    var score = parseInt(document.getElementById('score').value);
+    if( score==0 || score==1 || score==2 || score==3 || score==4 || score==6 || document.getElementById('score').value=='w')
+    {
+        if( document.getElementById('score').value=='w')
+        {
+            wicket += 1;
+            console.log('Wicket =',wicket);
+            document.getElementById('totalWicket').innerHTML = wicket;
+            score = 0;
+        }
+        if(score==4)
+        {
+            fours += 1;
+        }
+        if(score==4)
+        {
+            sixes += 1;
+        }
+        var newBall = parseFloat(over);
+
+        newBall = parseFloat(over) + 0.1;
+        over = newBall.toFixed(1);
+        if( (((((over)*10)-6)%10) == 0) )
+        {
+            newBall = parseFloat(over) + 1 - 0.6;
+            over = newBall.toFixed(1);
+            console.log("Over =",over);
+            document.getElementById('over').innerHTML = over;
+            document.getElementById('totalOver').innerHTML = over;
+            balls++;
+        }
+        else
+        {
+            console.log("Over =",over);
+            document.getElementById('over').innerHTML = over;
+            document.getElementById('totalOver').innerHTML = over;
+            balls++;
+        }
+
+        console.log('Run = ',score);
+        totalRun += score;
+    }
+    else
+    {
+        alert('Enter a Valid Score');
+        return;
+        
+        
+    }
+    strike = parseInt((totalRun / balls) * 100);
+    console.log('Total =',totalRun);
+    document.getElementById('totalRun').innerHTML = totalRun;
+    document.getElementById('playerRun').innerHTML = totalRun;
+    document.getElementById('playerFours').innerHTML = fours;
+    document.getElementById('playerSixes').innerHTML = sixes;
+    document.getElementById('playerStrikeRate').innerHTML = strike;
+
+    document.getElementById('playerRuns').innerHTML = totalRun;
+    document.getElementById('playerOver').innerHTML = over;
+    document.getElementById('playerWicket').innerHTML = wicket;
+
+}
+
+
+function previewCard() {
+  var name = document.getElementById("name").value;
+  var date = document.getElementById("date").value;
+  var clas = document.getElementById("class").value;
+
+  document.getElementById("showName").innerText = name;
+  document.getElementById("showDate").innerText = date;
+  document.getElementById("showClass").innerText = clas;
+
+  var elements = document.getElementsByName('new');
+  var names = document.getElementsByName('newName');
+
+  document.getElementById("idCard").style.display = "block";
+  window.location = "#idCard";
+
+  var k = 0;
+  elements.forEach((element) => {
+    let b = document.createElement("b");
+    b.appendChild(document.createTextNode(names[k].innerText+':'));
+    document.getElementById("setField").appendChild(b);
+    let i = document.createElement("i");
+    i.appendChild(document.createTextNode(element.value));
+    document.getElementById("setField").appendChild(i);
+    let br = document.createElement("br");
+    document.getElementById("setField").appendChild(br);
+    k++;
+  })
+}
+
+
+function newField() {
+  modal.style.display = "none";
+  modal2.style.display = "block";
+}
+
+var labelName = '';
+function addField() {
+  //let labelName = document.getElementById("labelName").value;
+  //document.getElementById("labelName").value = "";
+
+  labelName = document.getElementById("labelName").value;
+  //let labeltype = document.getElementById("labelType").value;
+  let labelVal = document.getElementsByName("labelType")[0];
+  let labelType = labelVal.options[labelVal.selectedIndex].text;
+
+  let label = document.createElement("label");
+  let br = document.createElement("br");
+  let inputType = document.createElement("input");
+
+  label.appendChild(document.createTextNode(labelName));
+  label.setAttribute("name", 'newName');
+  inputType.setAttribute("type", labelType);
+  inputType.setAttribute("name", 'new');
+
+
+  document.getElementById("newField").appendChild(label);
+  document.getElementById("newField").appendChild(inputType);
+  document.getElementById("newField").appendChild(br);
+
+
+  modal2.style.display = "none";
+  modal.style.display = "block";
+}
+
+function cancelField() {
+  modal.style.display = "block";
+  modal2.style.display = "none";
+}
+
+</script>
+
+</html>
