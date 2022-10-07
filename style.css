@@ -74,4 +74,5 @@ table
 {
   width: 100%;
   margin-bottom:3vh;
+  table-layout: fixed;
 }
