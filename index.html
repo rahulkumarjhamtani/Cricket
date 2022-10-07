@@ -27,8 +27,8 @@
                     <th>6s</th>
                     <th>SR</th>
                 </tr>
-                <tr id="bowler">
-                    <td>Rahul</td>
+                <tr>
+                    <td name="newBatsman" class="newBatsman">Rahul</td>
                     <td id="playerRun">0</td>
                     <td id="playerBalls">0</td>
                     <td id="playerFours">0</td>
@@ -46,7 +46,7 @@
                     <th>E</th>
                 </tr>
                 <tr>
-                    <td>Aryan</td>
+                    <td name="newBowler" class="newBowler">Aryan</td>
                     <td id="playerOver">0</td>
                     <td id="playerRuns">0</td>
                     <td id="playerWicket">0</td>
@@ -83,21 +83,13 @@
             <div class="center">
                 <h1>Add Player</h1>
                 <div class="fields">
-                    <!-- <label for="labelName">Field Label</label>
-                    <input type="text" name="labelName" id="labelName"><br>
-                    <label for="labelType">Field Type</label>
-                    <select name="labelType" id="labelType">
-                        <option value="text">Text</option>
-                        <option value="date">Date</option>
-                        <option value="number">Number</option>
-                    </select>
-                    <br> -->
+
                     <label for="labelName">Player Name</label>
                     <input type="text" name="labelName" id="labelName"><br>
                     <label for="labelType">Player Type</label>
                     <select name="labelType" id="labelType">
                         <option value="text">Batsman</option>
-                        <option value="date">Bowler</option>
+                        <option value="text">Bowler</option>
                     </select>
                     <br>
                 </div>
@@ -147,7 +139,9 @@ var economy = 0;
 
 function myScore()
 {
-    
+    console.log(document.getElementsByClassName('newBatsman'));
+    console.log(document.getElementsByClassName('newBowler'));
+
     var score = parseInt(document.getElementById('score').value);
     if( score==0 || score==1 || score==2 || score==3 || score==4 || score==6 || document.getElementById('score').value=='w')
     {
@@ -221,7 +215,62 @@ function newField() {
 }
 
 var labelName = '';
+var labelValue = 0;
 function addField() {
+
+    labelName = document.getElementById("labelName").value;
+    let labelVal = document.getElementsByName("labelType")[0];
+    let labelType = labelVal.options[labelVal.selectedIndex].text;
+    console.log(labelType);
+
+    if(labelType == 'Batsman')
+    {
+        label1 = document.createElement("tr");
+        document.getElementById("batsman").appendChild(label1);
+        label2 = document.createElement("td");
+        label2.appendChild(document.createTextNode(labelName));
+        label2.setAttribute("name", 'newBatsman');
+        label2.setAttribute("class", 'newBatsman');
+        document.getElementById("batsman").appendChild(label2);
+        label3 = document.createElement("td");
+        label3.appendChild(document.createTextNode(labelValue));
+        document.getElementById("batsman").appendChild(label3);
+        label4 = document.createElement("td");
+        label4.appendChild(document.createTextNode(labelValue));
+        document.getElementById("batsman").appendChild(label4);
+        label5 = document.createElement("td");
+        label5.appendChild(document.createTextNode(labelValue));
+        document.getElementById("batsman").appendChild(label5);
+        label6 = document.createElement("td");
+        label6.appendChild(document.createTextNode(labelValue));
+        document.getElementById("batsman").appendChild(label6);
+        label7 = document.createElement("td");
+        label7.appendChild(document.createTextNode(labelValue));
+        document.getElementById("batsman").appendChild(label7);
+    }
+    if(labelType == 'Bowler')
+    {
+        label1 = document.createElement("tr");
+        document.getElementById("bowler").appendChild(label1);
+        label2 = document.createElement("td");
+        label2.appendChild(document.createTextNode(labelName));
+        label2.setAttribute("name", 'newBowler');
+        label2.setAttribute("class", 'newBowler');
+        document.getElementById("bowler").appendChild(label2);
+        label3 = document.createElement("td");
+        label3.appendChild(document.createTextNode(labelValue));
+        document.getElementById("bowler").appendChild(label3);
+        label4 = document.createElement("td");
+        label4.appendChild(document.createTextNode(labelValue));
+        document.getElementById("bowler").appendChild(label4);
+        label5 = document.createElement("td");
+        label5.appendChild(document.createTextNode(labelValue));
+        document.getElementById("bowler").appendChild(label5);
+        label6 = document.createElement("td");
+        label6.appendChild(document.createTextNode(labelValue));
+        document.getElementById("bowler").appendChild(label6);
+        label7 = document.createElement("td");
+    }
 
   modal2.style.display = "none";
   modal.style.display = "none";
