@@ -66,7 +66,7 @@
             {
                 fours += 1;
             }
-            if(score==4)
+            if(score==6)
             {
                 sixes += 1;
             }
